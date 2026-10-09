@@ -13,13 +13,16 @@ bin:
 
 x64: bin
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/compost.c -o bin/compost.x64.o
+	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/resolvers/libtcg_ror13.c -o bin/resolvers/libtcg_ror13.x64.o
 	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/retrievers/linked_raw_dll.c -o bin/retrievers/linked_raw_dll.x64.o
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/retrievers/linked_xor_dll.c -o bin/retrievers/linked_xor_dll.x64.o
 	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/loaders/libtcg_reflective.c -o bin/loaders/libtcg_reflective.x64.o
+	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/invokers/dll_entrypoint.c -o bin/invokers/dll_entrypoint.x64.o
+	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/invokers/beacon_entrypoint.c -o bin/invokers/beacon_entrypoint.x64.o
 
 clean:
 	rm -rf bin

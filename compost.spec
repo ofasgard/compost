@@ -75,3 +75,8 @@ invoker.dll_entrypoint.x64:
 	# Load our basic DLL entrypoint invoker and merge it in.
 	load "bin/invokers/dll_entrypoint.x64.o"
 	merge
+	
+invoker.beacon_entrypoint.x64:
+	# Load our Beacon DLL invoker and merge it in.
+	load "bin/invokers/beacon_entrypoint.x64.o"
+	merge
