@@ -21,5 +21,6 @@ void go() {
  
     ProcessImports(&funcs, &data, dst);
  
-    EntryPoint(&data, dst)((HINSTANCE)dst, DLL_PROCESS_ATTACH, NULL);
+ 	DLLMAIN_FUNC entry = EntryPoint(&data, dst);
+ 	invoke_entrypoint(dst, (char *) entry, SizeOfDLL(&data));
 }

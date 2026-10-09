@@ -8,11 +8,13 @@ bin:
 	mkdir -p bin
 	mkdir -p bin/resolvers
 	mkdir -p bin/retrievers
+	mkdir -p bin/invokers
 
 x64: bin
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/loader.c -o bin/loader.x64.o
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/resolvers/libtcg_ror13.c -o bin/resolvers/libtcg_ror13.x64.o
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/retrievers/linked_raw_dll.c -o bin/retrievers/linked_raw_dll.x64.o
+	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/invokers/dll_entrypoint.c -o bin/invokers/dll_entrypoint.x64.o
 
 clean:
 	rm -rf bin

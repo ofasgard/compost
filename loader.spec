@@ -12,6 +12,9 @@ x64:
 	# Load in our chosen retriever spec (hardcoded for now).
 	.retriever.linked_raw_dll
 	
+	# Load in our chosen invoker spec (hardcoded for now).
+	.invoker.dll_entrypoint
+	
 	# Export as PIC.
 	export
 	
@@ -31,3 +34,8 @@ retriever.linked_raw_dll.x64:
 	# Link the payload directly into the implant (no obfuscation).
 	push $DLL
 	link "linked_capability"
+	
+invoker.dll_entrypoint.x64:
+	# Load our basic DLL entrypoint invoker and merge it in.
+	load "bin/invokers/dll_entrypoint.x64.o"
+	merge
