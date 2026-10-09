@@ -2,3 +2,4 @@ demo/
 bin/
 lib/libtcg/bin
 lib/libtcg/*.zip
+*.bin

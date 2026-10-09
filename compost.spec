@@ -19,7 +19,7 @@ x64:
 	# Load in our chosen retriever spec (hardcoded for now).
 	.retriever.linked_raw_dll
 	
-	# Load in our chose loader spec (hardcoded for now).
+	# Load in our chosen loader spec (hardcoded for now).
 	.loader.libtcg_reflective
 	
 	# Load in our chosen invoker spec (hardcoded for now).
@@ -78,6 +78,17 @@ loader.libtcg_reflective.x64:
 	# Load our basic LibTCG reflective loader and merge it in.
 	load "bin/loaders/libtcg_reflective.x64.o"
 	merge
+
+loader.libtcg_reflective_stomp.x64:
+	echo "Loader: libtcg_reflective_stomp"
+
+	# Load our DLL stomping loader and merge it in.
+	load "bin/loaders/libtcg_reflective_stomp.x64.o"
+	merge
+
+	# Patch in the path of our stompable DLL.
+	pack $SDP "Z" %STOMPABLE_DLL_PATH
+	patch "STOMPABLE_DLL_PATH" $SDP
 
 # Invoker Labels
 

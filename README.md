@@ -13,5 +13,5 @@ I'm also planning to create a companion tool that works a bit like a wizard, wal
 Test with:
 
 ```sh
-$ cpl link compost.spec demo/test.x64.dll compost.bin
+$ cpl link compost.spec demo/test.x64.dll compost.bin @config.spec 
 ```
