@@ -1,4 +1,9 @@
 x64:
+	meta "name" "compost"
+	meta "describe" "A composable reflective loader."
+	meta "license" "GNU GPL v2"
+	meta "author" "Callum Murphy-Hale @cactzone"
+
 	# Load our PIC runner.
 	load "bin/loader.x64.o"
 	make pic +gofirst +optimize
@@ -17,7 +22,9 @@ x64:
 	
 	# Export as PIC.
 	export
-	
+
+# Resolver Labels
+
 resolver.libtcg_ror13.x64:
 	# Load our DFR resolver and merge it in.
 	load "bin/resolvers/libtcg_ror13.x64.o"
@@ -25,6 +32,8 @@ resolver.libtcg_ror13.x64:
 	
 	# Add ROR13 dynamic function resolution.
 	dfr "resolve" "ror13"
+	
+# Retriever Labels
 	
 retriever.linked_raw_dll.x64:
 	# Load our raw DLL retriever and merge it in.
@@ -34,7 +43,9 @@ retriever.linked_raw_dll.x64:
 	# Link the payload directly into the implant (no obfuscation).
 	push $DLL
 	link "linked_capability"
-	
+
+# Invoker Labels
+
 invoker.dll_entrypoint.x64:
 	# Load our basic DLL entrypoint invoker and merge it in.
 	load "bin/invokers/dll_entrypoint.x64.o"
