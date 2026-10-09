@@ -4,6 +4,8 @@ x64:
 	meta "license" "GNU GPL v2"
 	meta "author" "Callum Murphy-Hale @cactzone"
 
+	echo "Let's make some compost!"
+
 	# Load our central module.
 	load "bin/compost.x64.o"
 	make pic +gofirst +optimize
@@ -29,6 +31,8 @@ x64:
 # Resolver Labels
 
 resolver.libtcg_ror13.x64:
+	echo "Resolver: libtcg_ror13"
+
 	# Load our DFR resolver and merge it in.
 	load "bin/resolvers/libtcg_ror13.x64.o"
 	merge
@@ -39,6 +43,8 @@ resolver.libtcg_ror13.x64:
 # Retriever Labels
 	
 retriever.linked_raw_dll.x64:
+	echo "Retriever: linked_raw_dll"
+
 	# Load our raw DLL retriever and merge it in.
 	load "bin/retrievers/linked_raw_dll.x64.o"
 	merge
@@ -48,6 +54,8 @@ retriever.linked_raw_dll.x64:
 	link "linked_capability"
 	
 retriever.linked_xor_dll.x64:
+	echo "Retriever: linked_xor_dll"
+
 	# Load our XOR DLL retriever and merge it in.
 	load "bin/retrievers/linked_xor_dll.x64.o"
 	merge
@@ -65,6 +73,8 @@ retriever.linked_xor_dll.x64:
 # Loader Labels
 
 loader.libtcg_reflective.x64:
+	echo "Loader: libtcg_reflective"
+
 	# Load our basic LibTCG reflective loader and merge it in.
 	load "bin/loaders/libtcg_reflective.x64.o"
 	merge
@@ -72,11 +82,15 @@ loader.libtcg_reflective.x64:
 # Invoker Labels
 
 invoker.dll_entrypoint.x64:
+	echo "Invoker: dll_entrypoint"
+
 	# Load our basic DLL entrypoint invoker and merge it in.
 	load "bin/invokers/dll_entrypoint.x64.o"
 	merge
 	
 invoker.beacon_entrypoint.x64:
+	echo "Invoker: beacon_entrypoint"
+
 	# Load our Beacon DLL invoker and merge it in.
 	load "bin/invokers/beacon_entrypoint.x64.o"
 	merge
