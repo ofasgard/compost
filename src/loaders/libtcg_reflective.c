@@ -5,6 +5,8 @@
 WINBASEAPI LPVOID WINAPI KERNEL32$VirtualAlloc (LPVOID lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
 
 void load_dll(char *rawDll, LOADED_DLL *dll) {
+	// Basic reflective loader that uses the default implementation included with LibTCG.
+
 	DLLDATA data;
 	ParseDLL(rawDll, &data);
 	
