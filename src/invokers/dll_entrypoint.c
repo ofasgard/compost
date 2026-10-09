@@ -1,7 +1,7 @@
 #include <windows.h>
+#include "../compost.h"
+#include "../tcg.h"
 
-typedef BOOL WINAPI (*DLLMAIN_FUNC)(HINSTANCE, DWORD, LPVOID);
-
-void invoke_entrypoint(char *dllBase, char *dllEntry, size_t dllSize) {
-	((DLLMAIN_FUNC)dllEntry)((HINSTANCE)dllBase, DLL_PROCESS_ATTACH, NULL);
+void invoke_entrypoint(LOADED_DLL *dll) {
+	((DLLMAIN_FUNC) dll->entrypoint)((HINSTANCE)dll->base, DLL_PROCESS_ATTACH, NULL);
 }

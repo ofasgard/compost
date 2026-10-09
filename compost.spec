@@ -4,8 +4,8 @@ x64:
 	meta "license" "GNU GPL v2"
 	meta "author" "Callum Murphy-Hale @cactzone"
 
-	# Load our PIC runner.
-	load "bin/loader.x64.o"
+	# Load our central module.
+	load "bin/compost.x64.o"
 	make pic +gofirst +optimize
 
 	# Merge in LibTCG.
@@ -16,6 +16,9 @@ x64:
 	
 	# Load in our chosen retriever spec (hardcoded for now).
 	.retriever.linked_raw_dll
+	
+	# Load in our chose loader spec (hardcoded for now).
+	.loader.libtcg_reflective
 	
 	# Load in our chosen invoker spec (hardcoded for now).
 	.invoker.dll_entrypoint
@@ -43,6 +46,13 @@ retriever.linked_raw_dll.x64:
 	# Link the payload directly into the implant (no obfuscation).
 	push $DLL
 	link "linked_capability"
+
+# Loader Labels
+
+loader.libtcg_reflective.x64:
+	# Load our basic LibTCG reflective loader and merge it in.
+	load "bin/loaders/libtcg_reflective.x64.o"
+	merge
 
 # Invoker Labels
 

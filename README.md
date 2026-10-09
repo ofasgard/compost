@@ -7,5 +7,5 @@ A framework for composable post-exploitation tradecraft. GPL v2. WIP, come back 
 Test with:
 
 ```sh
-$ cpl link loader.spec demo/test.x64.dll out.bin
+$ cpl link compost.spec demo/test.x64.dll compost.bin
 ```
