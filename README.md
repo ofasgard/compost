@@ -8,6 +8,12 @@ Since the components all follow the same function signature contract, you can fr
 
 I'm also planning to create a companion tool that works a bit like a wizard, walking you through the process and asking you which bits of tradecraft you wish to include at every step. This should make it easy to quickly iterate payloads while you're performing your offensive detection engineering.
 
+Stuff to do:
+
+- Some kind of sleep masking implementation
+- Other APIs?
+- Some nice documentation, including how to contribute tradecraft scraps
+
 ***
 
 Test with:
