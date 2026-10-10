@@ -81,6 +81,7 @@ loader.libtcg_reflective.x64:
 
 loader.libtcg_reflective_stomp.x64:
 	echo "Loader: libtcg_reflective_stomp"
+	echo "    Stomping over" %STOMPABLE_DLL_PATH
 
 	# Load our DLL stomping loader and merge it in.
 	load "bin/loaders/libtcg_reflective_stomp.x64.o"
