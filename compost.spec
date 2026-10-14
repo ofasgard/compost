@@ -2,13 +2,15 @@ x64:
 	meta "name" "compost"
 	meta "describe" "A composable reflective loader."
 	meta "license" "GNU GPL v2"
-	meta "author" "Callum Murphy-Hale @cactzone"
+	meta "author" "Callum Murphy-Hale @ofasgard"
 
 	echo "Let's make some compost!"
 
 	# Load our central module.
 	load "bin/compost.x64.o"
-	make pic +gofirst +optimize
+
+	# Load in our chosen binary transformer spec (hardcoded for now).
+	.transformer.optimize_only
 
 	# Merge in LibTCG.
 	mergelib "lib/libtcg/libtcg.x64.zip"
@@ -27,6 +29,16 @@ x64:
 	
 	# Export as PIC.
 	export
+
+# Transformer Labels
+
+transformer.optimize_only.x64:
+	echo "Transformer: optimize_only"
+	make pic +gofirst +optimize
+	
+transformer.optimize_mutate.x64:
+	echo "Transformer: optimize_mutate"
+	make pic +gofirst +optimize +disco +mutate +regdance +blockparty
 
 # Resolver Labels
 
