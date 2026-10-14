@@ -22,7 +22,7 @@ x64:
 	.retriever.linked_raw_dll
 	
 	# Load in our chosen sleepmask spec (hardcoded for now).
-	.sleepmask.no_mask
+	.sleepmask.libtcg_mask
 	
 	# Load in our chosen loader spec (hardcoded for now).
 	.loader.libtcg_reflective
@@ -106,6 +106,10 @@ sleepmask.libtcg_mask.x64:
 	
 	# Export the sleep masking function from the PICO.
 	exportfunc "sleepmask" "__tag_sleepmask"
+	
+	# Add the hooks for Sleep() and NtWaitForObject().
+	addhook "KERNEL32$Sleep" "_Sleep"
+	addhook "NTDLL$NtWaitForSingleObject" "_NtWaitForSingleObject"
 	
 	# Export it as bytes and link it.
 	export
