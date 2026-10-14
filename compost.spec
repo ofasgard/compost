@@ -93,6 +93,27 @@ sleepmask.no_mask.x64:
 	# Load our pointless sleepmask hook and merge it in.
 	load "bin/sleepmasks/no_mask.x64.o"
 	merge
+	
+sleepmask.libtcg_mask.x64:
+	echo "Sleepmask: libtcg_mask"
+	
+	# Load our sleep masking PICO.
+	load "bin/sleepmasks/libtcg_mask_pico.x64.o"
+	make object
+	
+	# Merge in LibTCG.
+	mergelib "lib/libtcg/libtcg.x64.zip"
+	
+	# Export the sleep masking function from the PICO.
+	exportfunc "sleepmask" "__tag_sleepmask"
+	
+	# Export it as bytes and link it.
+	export
+	link "sleep_pico"
+	
+	# Load our sleep masking API and merge it in.
+	load "bin/sleepmasks/libtcg_mask.x64.o"
+	merge
 
 # Loader Labels
 
