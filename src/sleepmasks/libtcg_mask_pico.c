@@ -10,18 +10,23 @@ WINBASEAPI NTSTATUS NTAPI NTDLL$NtWaitForSingleObject(HANDLE Handle, BOOLEAN Ale
 char SLEEPMASK_KEY[32] __attribute__((section(".text")));
 
 void xor_region(MEMORY_BASIC_INFORMATION *meminfo) {
+	// Change memory protections of the capability.
 	DWORD oldProt = 0;
 	KERNEL32$VirtualProtect(meminfo->AllocationBase, meminfo->RegionSize, PAGE_READWRITE, &oldProt);
 	
+	// Obfuscate or deobfuscate the capability.
 	char *ptr = (char *) meminfo->AllocationBase;
 	for(int i = 0; i < meminfo->RegionSize; i++) {
 		ptr[i] = ptr[i] ^ SLEEPMASK_KEY[i % 32];
 	}
 	
+	// Reprotect the capability.
 	KERNEL32$VirtualProtect(meminfo->AllocationBase, meminfo->RegionSize, oldProt, &oldProt);
 }
 
 WINBASEAPI VOID WINAPI _Sleep(DWORD dwMilliseconds) {
+	// Hook for KERNEL32$Sleep.
+	
 	void *caller = __builtin_return_address(0);
 	
 	MEMORY_BASIC_INFORMATION meminfo;
@@ -34,6 +39,8 @@ WINBASEAPI VOID WINAPI _Sleep(DWORD dwMilliseconds) {
 }
 
 WINBASEAPI NTSTATUS NTAPI _NtWaitForSingleObject(HANDLE Handle, BOOLEAN Alertable, PLARGE_INTEGER Timeout) {
+	// Hook for NTDLL$NtWaitForSingleObject.
+
 	void *caller = __builtin_return_address(0);
 	
 	MEMORY_BASIC_INFORMATION meminfo;
