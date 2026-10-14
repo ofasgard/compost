@@ -21,6 +21,9 @@ x64:
 	# Load in our chosen retriever spec (hardcoded for now).
 	.retriever.linked_raw_dll
 	
+	# Load in our chosen sleepmask spec (hardcoded for now).
+	.sleepmask.no_mask
+	
 	# Load in our chosen loader spec (hardcoded for now).
 	.loader.libtcg_reflective
 	
@@ -81,6 +84,15 @@ retriever.linked_xor_dll.x64:
 	mask "xor" $XOR_KEY
 	preplen
 	link "linked_capability"
+
+# Sleepmask Labels
+
+sleepmask.no_mask.x64:
+	echo "Sleepmask: no_mask"
+	
+	# Load our pointless sleepmask hook and merge it in.
+	load "bin/sleepmasks/no_mask.x64.o"
+	merge
 
 # Loader Labels
 

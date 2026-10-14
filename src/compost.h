@@ -7,3 +7,4 @@ typedef struct {
 char *retrieve_dll();
 void load_dll(char *rawDll, LOADED_DLL *dll);
 void invoke_entrypoint(LOADED_DLL *dll);
+void *get_sleep_hook();

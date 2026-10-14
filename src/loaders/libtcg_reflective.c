@@ -18,7 +18,7 @@ void load_dll(char *rawDll, LOADED_DLL *dll) {
 	LoadDLL(&data, rawDll, dll->base);
 	
 	IMPORTFUNCS funcs;
-	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) KERNEL32$GetProcAddress;
+	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) get_sleep_hook();
 	funcs.LoadLibraryA = (__typeof__(LoadLibraryA) *) KERNEL32$LoadLibraryA;
 	ProcessImports(&funcs, &data, dll->base);
 	
