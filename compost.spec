@@ -110,7 +110,11 @@ sleepmask.libtcg_mask.x64:
 	# Add the hooks for Sleep() and NtWaitForObject().
 	addhook "KERNEL32$Sleep" "_Sleep"
 	addhook "NTDLL$NtWaitForSingleObject" "_NtWaitForSingleObject"
-	
+
+	# Generate a 32-byte encryption key and patch it in.
+	generate $SLEEPMASK_KEY 32
+	patch "SLEEPMASK_KEY" $SLEEPMASK_KEY
+
 	# Export it as bytes and link it.
 	export
 	link "sleep_pico"

