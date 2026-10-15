@@ -6,16 +6,16 @@ This is an experiment in collecting composable post-exploitation tradecraft into
 
 Since the components all follow the same function signature contract, you can freely swap them out just by modifying the `.spec` file. The result is a composable loader where every aspect of its behaviour is modular and extensible.
 
-Currently, we implement the following composable scraps:
+Currently, we implement the following composable "scraps":
 
 - **Transformer**: Defines which Crystal Palace binary transformations are applied to the implant. For example, `optimize_only` corresponds to "make pic +gofirst +optimize".
 - **Resolver**: Defines how the implant dynamically resolves Windowss APIs. For example, `libtcg_ror13` uses the ROR13 resolution functions bundled with LibTCG.
 - **Retriever**: Defines how the implant retrieves and unpacks the DLL capability. For example, `linked_xor_dll` uses a XOR-obfuscated DLL embedded into the implant with a randomly-generated key.
-- **Sleepmask**: Defines how the implant hooks sleep APIs while reflectively loading the capability, and provides an implementation for obfuscating or deobfuscating it in memory. For example, `libtcg_mask` uses an embedded PICO to perform sleepmasking and relies on LibTCG to load it into memory.
+- **Sleepmask**: Defines how the implant hooks sleep APIs while reflectively loading the capability, and provides an implementation for obfuscating or deobfuscating it in memory. For example, `libtcg_gpa` uses an embedded PICO to perform sleepmasking and relies on LibTCG to load it into memory.
 - **Loader**: Defines how the implant reflectively loads the DLL capability. For example, `libtcg_reflective` uses the reflective DLL loader implementation bundled with LibTCG.
 - **Invoker**: Defines how the implant transfers execution to the loaded DLL capability. For example, `dll_entrypoint` just invokes the entrypoint of the DLL directly.
 
-> **Here Be Dragons!** This project is still in an early stage of development, and the components I've implemented have only been tested against a basic "test" DLL, not a real Beacon or similar DLL capability. This is very much an early WIP, and seeing whether this "composable implant" idea works and is reliable is part of what I'm trying to experiment with. I welcome issues, pull requests, and code contributions. 
+> **Here Be Dragons!** This project is still in an early stage of development. It's very much an early WIP, and seeing whether this "composable implant" idea works and is reliable is part of what I'm trying to experiment with. I welcome issues, pull requests, and ideas about what kind of configurable/composable functionality this project should include. 
 
 ## Composing an Implant
 
@@ -36,3 +36,17 @@ $ cpl link compost.spec path/to/test.x64.dll compost.bin @config.spec
 ```
 
 The resulting `compost.bin` file contains your shellcode.
+
+## Expanding and Contributing Tradecraft
+
+If you wanted to add (for example) a new reflective loader to the project, here's how you'd do it:
+
+1. Write your loader source code in `src/loaders/`, using the existing modules as a template. 
+2. Modify the `Makefile` to ensure your source code gets compiled into object files by the build script. 
+3. Add a new label to `compost.spec` such as `loader.my_cool_loader.x64` which defines how Crystal Palace should load and merge/link your loader.
+
+The most important thing is that your code follows the APIs defined in `compost.h`; this is how we ensure compatibility between the modular components. If you're writing a reflective loader, for example, you should have a `load_dll()` function that takes a pointer to a raw DLL and populates the `LOADED_DLL` struct provided. If you want your loader to support sleepmasking via hooking `GetProcAddress()`, it should use `get_sleep_hook()` to retrieve the `GetProcAddress` pointer that your loader will pass to the capability.
+
+## Disclaimer
+
+*This project is released strictly for educational purposes, and is intended solely for use by authorised parties performing legitimate security research and red team assessments. My only intention is to share my work for the purposes of uplifting security.*
