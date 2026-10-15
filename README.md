@@ -34,3 +34,5 @@ $ cpl link compost.spec path/to/test.x64.dll compost.bin @config.spec
 ```
 
 The resulting `compost.bin` file contains your shellcode.
+
+> **Here Be Dragons!**. This project is still in an early stage of development, and the components I've implemented have only been tested against a basic "test" DLL, not a real Beacon or similar DLL capability. This is very much an early WIP, and seeing whether this "composable implant" idea works and is reliable is part of what I'm trying to experiment with. I welcome issues, pull requests, and code contributions. 
