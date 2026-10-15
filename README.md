@@ -15,6 +15,8 @@ Currently, we implement the following composable scraps:
 - **Loader**: Defines how the implant reflectively loads the DLL capability. For example, `libtcg_reflective` uses the reflective DLL loader implementation bundled with LibTCG.
 - **Invoker**: Defines how the implant transfers execution to the loaded DLL capability. For example, `dll_entrypoint` just invokes the entrypoint of the DLL directly.
 
+> **Here Be Dragons!** This project is still in an early stage of development, and the components I've implemented have only been tested against a basic "test" DLL, not a real Beacon or similar DLL capability. This is very much an early WIP, and seeing whether this "composable implant" idea works and is reliable is part of what I'm trying to experiment with. I welcome issues, pull requests, and code contributions. 
+
 ## Composing an Implant
 
 To choose which scraps your implant will use, you must modify the `compost.spec` file. For example, to change which transformer the implant uses, look for these lines:
@@ -34,5 +36,3 @@ $ cpl link compost.spec path/to/test.x64.dll compost.bin @config.spec
 ```
 
 The resulting `compost.bin` file contains your shellcode.
-
-> **Here Be Dragons!**. This project is still in an early stage of development, and the components I've implemented have only been tested against a basic "test" DLL, not a real Beacon or similar DLL capability. This is very much an early WIP, and seeing whether this "composable implant" idea works and is reliable is part of what I'm trying to experiment with. I welcome issues, pull requests, and code contributions. 
