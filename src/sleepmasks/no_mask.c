@@ -3,7 +3,7 @@
 
 WINBASEAPI LPVOID WINAPI KERNEL32$GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-void *get_sleep_hook() {
+void *get_sleep_hook(char *capability, size_t size) {
 	// No sleepmask at all. Returns the original unhooked address of the GetProcAddress() API.
 	return (void *) KERNEL32$GetProcAddress;
 }

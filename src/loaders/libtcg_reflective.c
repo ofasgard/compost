@@ -17,8 +17,10 @@ void load_dll(char *rawDll, LOADED_DLL *dll) {
 	dll->base = KERNEL32$VirtualAlloc(NULL, dll->size, MEM_RESERVE|MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	LoadDLL(&data, rawDll, dll->base);
 	
+	void *sleep_hook = get_sleep_hook(dll->base, dll->size);
+	
 	IMPORTFUNCS funcs;
-	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) get_sleep_hook();
+	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) sleep_hook;
 	funcs.LoadLibraryA = (__typeof__(LoadLibraryA) *) KERNEL32$LoadLibraryA;
 	ProcessImports(&funcs, &data, dll->base);
 	

@@ -148,8 +148,10 @@ void register_pdata(char *mapped_dll) {
 void load_dll(char *rawDll, LOADED_DLL *dll) {
 	// A variant of the LibTCG reflective loader that also incorporates module stomping. The path of the DLL to be stomped is patched in.
 
+	void *sleep_hook = get_sleep_hook(dll->base, dll->size);
+
 	IMPORTFUNCS funcs;
-	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) get_sleep_hook();
+	funcs.GetProcAddress = (__typeof__(GetProcAddress) *) sleep_hook;
 	funcs.LoadLibraryA = (__typeof__(LoadLibraryA) *) KERNEL32$LoadLibraryA;
 	
 	// Parse the DLL we want to load.
