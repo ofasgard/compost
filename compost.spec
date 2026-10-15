@@ -22,7 +22,7 @@ x64:
 	.retriever.linked_raw_dll
 	
 	# Load in our chosen sleepmask spec (hardcoded for now).
-	.sleepmask.libtcg_mask
+	.sleepmask.libtcg_gpa
 	
 	# Load in our chosen loader spec (hardcoded for now).
 	.loader.libtcg_reflective
@@ -94,11 +94,11 @@ sleepmask.no_mask.x64:
 	load "bin/sleepmasks/no_mask.x64.o"
 	merge
 	
-sleepmask.libtcg_mask.x64:
-	echo "Sleepmask: libtcg_mask"
+sleepmask.libtcg_gpa.x64:
+	echo "Sleepmask: libtcg_gpa"
 	
 	# Load our sleep masking PICO.
-	load "bin/sleepmasks/libtcg_mask_pico.x64.o"
+	load "bin/sleepmasks/libtcg_gpa_pico.x64.o"
 	make object
 	
 	# Merge in LibTCG.
@@ -120,7 +120,7 @@ sleepmask.libtcg_mask.x64:
 	link "sleep_pico"
 	
 	# Load our sleep masking API and merge it in.
-	load "bin/sleepmasks/libtcg_mask.x64.o"
+	load "bin/sleepmasks/libtcg_gpa.x64.o"
 	merge
 
 # Loader Labels

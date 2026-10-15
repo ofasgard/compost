@@ -21,8 +21,8 @@ x64: bin
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/retrievers/linked_xor_dll.c -o bin/retrievers/linked_xor_dll.x64.o
 	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/sleepmasks/no_mask.c -o bin/sleepmasks/no_mask.x64.o
-	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/sleepmasks/libtcg_mask.c -o bin/sleepmasks/libtcg_mask.x64.o
-	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/sleepmasks/libtcg_mask_pico.c -o bin/sleepmasks/libtcg_mask_pico.x64.o
+	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/sleepmasks/libtcg_gpa.c -o bin/sleepmasks/libtcg_gpa.x64.o
+	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/sleepmasks/libtcg_gpa_pico.c -o bin/sleepmasks/libtcg_gpa_pico.x64.o
 	
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/loaders/libtcg_reflective.c -o bin/loaders/libtcg_reflective.x64.o
 	$(CC_64) -DWIN_X64 $(CFLAGS) -c src/loaders/libtcg_reflective_stomp.c -o bin/loaders/libtcg_reflective_stomp.x64.o
